@@ -1,0 +1,402 @@
+:root {
+  --primary-color: #e4cfa9;
+  --secondary-color: #e4cfa9;
+  --dark-color: #F7F7F2;
+  --light-color: #ffffff;
+  --accent-color: #f1c40f;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+body {
+    /* TIRE o background-image daqui */
+    background-color: var(--dark-color); 
+    color: var(--light-color);
+    overflow-x: hidden; 
+    position: relative; /* Necessário para o z-index funcionar */
+    z-index: 1;         /* Garante que o conteúdo fique na frente */
+}
+
+/* AQUI VAI O PATTERN */
+body::before {
+    content: ""; /* Obrigatório para o ::before aparecer */
+    
+    /* Suas propriedades de background */
+    background-image: url('Images/Pattern.png');
+    background-repeat: repeat; 
+    background-attachment: scroll;
+
+    /* Mágica para cobrir o fundo todo */
+    position: fixed; /* Fica fixo mesmo com scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;     /* Joga o pattern para TRÁS do conteúdo */
+}
+
+/* Quando o <body> tiver a classe... */
+body.photosensitivity {
+    /* 1. Aplica o filtro a TUDO (Pattern, Imagens, Texto) */
+    filter: brightness(80%) saturate(70%);
+}
+
+/* 2. Para TODAS as animações e transições em TODOS os elementos */
+body.photosensitivity * {
+    animation: none !important;
+    transition: none !important;
+}
+
+header {
+  margin-top: 40px;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  gap: 15px; 
+  padding: 20px 0;
+
+}
+
+
+#AncorasNavegacao {
+    display: flex;
+    margin-top: 10px;
+    justify-content: center; 
+    align-items: center;   
+}
+
+#AncorasNavegacao a {
+    margin: 0 30px; 
+    color: #000000;         
+    text-decoration: none; 
+    font-weight: bold; 
+    font-size: 28px;
+}
+
+#AncorasNavegacao a:hover {
+    color: #e4cfa9; 
+}
+
+.accessibility-panel {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  margin-top: -200px;
+  margin-right: -12px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 2000;
+}
+
+.accessibility-panel button {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+  background: var(--primary-color);
+  color: rgb(255, 111, 0);
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.accessibility-panel button:hover {
+  transform: scale(1.1);
+  background: var(--secondary-color);
+}
+
+/* --- INVERTER CORES (ALTO CONTRASTE) - CORRIGIDO --- */
+
+/* 1. Aplica a inversão em TUDO (textos, fundos E as imagens do header/post) */
+body.invert-colors {
+    filter: invert(100%);
+}
+
+/* 2. A MÁGICA: Des-inverte APENAS as fotos do carrossel e o pattern
+   (para que não pareçam negativos de foto) */
+body.invert-colors .carousel-item img,
+body.invert-colors body::before {
+    filter: invert(100%);
+}
+
+#anchorMenu {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgb(0, 0, 0);
+  padding: 10px 15px;
+  border-radius: 10px;
+  display: flex;
+  gap: 15px;
+  z-index: 2100;
+}
+
+#anchorMenu a {
+  color: var(--light-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#anchorMenu.hidden {
+  display: none;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+.h1h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  text-shadow: 0 0 10px #F8BBD0;
+
+  cursor: pointer;          /* mostra a mãozinha */
+  text-decoration: none;    /* remove sublinhado */
+  display: inline-block;    /* garante área clicável */
+  position: relative;       /* permite z-index funcionar */
+  z-index: 1000;            /* fica acima de elementos que possam sobrepor */
+}
+
+.h1h1:hover {
+  text-decoration: underline;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+
+.PostInicio{
+    display: flex; 
+    align-items: center;
+    width: 100%;
+}
+
+/* 1. O container "pai" (Mantém o alinhamento geral) */
+.PostInicio {
+    display: flex;
+    align-items: center;     
+    max-width: 1200px; /* Limita a largura no centro da página */
+    margin: 0 auto;    
+    width: 100%;     
+   margin-top: 60px;  
+}
+
+/* 2. As Colunas (divs) 
+ * Elas MANTÊM O TAMANHO 50/50 como você pediu.
+ * A mudança é que elas agora centralizam seu conteúdo. */
+.coluna-imagem,
+.coluna-texto {
+    flex-basis: 50%;   /* <-- Garante que a DIV tenha 50% */
+    padding: 20px;     
+    box-sizing: border-box; 
+    
+    /* --- ISSO CENTRALIZA A IMAGEM DENTRO DA DIV --- */
+    display: flex;
+    justify-content: center;
+}
+
+/* --- A SOLUÇÃO PARA OS TAMANHOS DIFERENTES --- */
+
+/* 3. Imagem 1 (Pizza) */
+.coluna-imagem img {
+    width: 1100px;       /* <-- SEU TAMANHO FIXO (ex: 600px) */
+    max-width: 115%;    /* <-- MÁGICA: Impede que "estoure" a div */
+    height: auto;
+    display: block;
+}
+
+/* 4. Imagem 2 (Texto) */
+.coluna-texto img {
+    width: 350px;       /* <-- SEU TAMANHO FIXO (ex: 800px) */
+    max-width: 100%;    /* <-- MÁGICA: Impede que "estoure" a div */
+    height: auto;
+    display: block;
+}
+
+.carousel-container {
+  display: block;
+  position: relative; 
+  width: 100%;
+  max-width: 1200px;
+  margin: 3rem auto;
+  perspective: 2000px;
+  z-index: 5;
+  margin-top: 160px;
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  margin-top: -300px;
+  margin-bottom: 300px;
+  height: 500px;
+  transform-origin: center center; 
+  transform-style: preserve-3d;
+  animation: rotateCarousel 30s linear infinite;
+}
+
+@keyframes rotateCarousel {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+.carousel-item {
+  position:absolute;
+  width: 300px;
+  height: 400px;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.carousel-item:hover img {
+  transform: scale(1.1);
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1rem;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.carousel-item:hover .carousel-caption {
+  transform: translateY(0);
+}
+
+.carousel-caption h3 {
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.content-section {
+  position: relative;
+  z-index: 5;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.topic-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.topic-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.topic-card h2 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.topic-card i {
+  font-size: 1.5rem;
+}
+
+.link-centralizado {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.iframe-container {
+  position: relative;
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  width: 100%;     
+  margin-top: 300px; 
+  padding-bottom: 56.25%; 
+}
+
+.iframe-container iframe {
+width: 80%;             
+max-width: 1152px;       
+height: 500px;          
+border: 0;
+background: transparent;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+  z-index: 5;
+  margin-top: 3rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .carousel {
+    height: 300px;
+  }
+
+  .carousel-item {
+    width: 200px;
+    height: 250px;
+  }
+  
+}
