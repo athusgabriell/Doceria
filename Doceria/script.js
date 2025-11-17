@@ -1,23 +1,3 @@
-// Ajusta dinamicamente a posição dos itens do carrossel para responsividade
-function adjustCarousel() {
-    const carouselItems = document.querySelectorAll('.carousel-item');
-    const angleIncrement = 360 / carouselItems.length;
-    const radius = window.innerWidth < 768 ? 300 : 500;
-    
-    carouselItems.forEach((item, index) => {
-        const angle = angleIncrement * index;
-        item.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
-    });
-}
-
-
-window.addEventListener('load', () => {
-    adjustCarousel();
-    createCircles();
-});
-
-window.addEventListener('resize', adjustCarousel);
-
 // ======= FUNÇÃO 1 - Leitor de Tela (CÓDIGO CORRIGIDO) =======
 let readModeActive = false;
 let speech = window.speechSynthesis;
